@@ -17,6 +17,10 @@ class Tweet: NSObject
     var currentTime: NSDate?
     var currentTimeString: String?
     var tweetID: Int?
+    var retweetCount: Int?
+    var favoriteCount: Int?
+    var likeBool: Bool?
+
     //var test: String?
     
     init(dictionary: NSDictionary)
@@ -34,6 +38,16 @@ class Tweet: NSObject
         currentTime = NSDate();
         formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
         currentTimeString = formatter.stringFromDate(createdAt!)
+        
+        retweetCount = dictionary["retweet_count"] as? Int
+        favoriteCount = dictionary["favorite_count"] as? Int
+        
+        likeBool = dictionary["favorited"] as? Bool
+        
+
+        
+        
+        
         
     }
     

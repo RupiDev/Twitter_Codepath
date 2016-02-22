@@ -13,6 +13,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet weak var tableView: UITableView!
     var tweets: [Tweet]?
+    var isMoreDataLoading: Bool!
     
     override func viewDidLoad()
     {
@@ -62,6 +63,50 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
 
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        
+        var tweet: Tweet
+        if segue.identifier == "TweetsToDetail"
+        {
+            let cell = sender as! UITableViewCell
+            let indexPath = tableView.indexPathForCell(cell)
+            tweet = tweets![(indexPath?.row)!]
+        
+            let detailsViewController = segue.destinationViewController as! DetailsViewController
+            detailsViewController.tweet = tweet
+            
+            print("\n \n \n \n \n")
+            print("HELLO")
+        }
+        
+        if segue.identifier == "timelineToProfile"
+        {
+            let button = sender as! UIButton
+            let view = button.superview!
+            let cell = view.superview as! UITableViewCell
+            
+            let indexPath = tableView.indexPathForCell(cell)
+            tweet = tweets![(indexPath?.row)!]
+            let profileViewController = segue.destinationViewController as? ProfileViewController
+            profileViewController!.tweet = tweet
+            
+            
+            
+        }
+        //detailsViewController.movies = movie
+        
+    }
+    
+    
+   
+    
 
     /*
     // MARK: - Navigation

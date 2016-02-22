@@ -134,6 +134,14 @@ class TwitterClient: BDBOAuth1SessionManager
         })
     }
     
+    func unLikeTweetWithId(id: Int?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
+        POST("1.1/favorites/destroy.json?id=\(id!)", parameters: nil, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+            print("success unliking")
+            }, failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
+                print("error unliking\(id!)")
+        })
+    }
+    
     func retweetWithId(id: Int?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
         POST("1.1/statuses/retweet/\(id!).json", parameters: nil, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
             print("success retweet")
@@ -141,6 +149,27 @@ class TwitterClient: BDBOAuth1SessionManager
                 print("error retweet\(id!)")
         })
     }
+    
+    func unRetweetWithId(id: Int?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
+        POST("1.1/statuses/unretweet/\(id!).json", parameters: nil, success: { (operation: NSURLSessionDataTask!, response: AnyObject?) -> Void in
+            print("success unretweet")
+            }, failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
+                print("error unretweet\(id!)")
+        })
+    }
+    
+    // ?status=\(status)
+    func postTweet(status: String)
+    {
+        POST("https://api.twitter.com/1.1/statuses/update.json\(status)", parameters: nil, success: { (operation: NSURLSessionDataTask, response: AnyObject?) -> Void in
+            print("success post")
+            }, failure: { (operation: NSURLSessionDataTask?, error: NSError!) -> Void in
+                
+                print("https://api.twitter.com/1.1/statuses/update.json\(status)")
+        })
+    }
+    
+
     
     
     
